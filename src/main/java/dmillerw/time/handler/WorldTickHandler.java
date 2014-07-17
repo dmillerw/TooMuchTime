@@ -1,16 +1,20 @@
 package dmillerw.time.handler;
 
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.TickEvent;
+import cpw.mods.fml.common.ITickHandler;
+import cpw.mods.fml.common.TickType;
+import cpw.mods.fml.common.registry.TickRegistry;
+import cpw.mods.fml.relauncher.Side;
+import net.minecraft.world.World;
+
+import java.util.EnumSet;
 
 /**
  * @author dmillerw
  */
-public class WorldTickHandler {
+public class WorldTickHandler implements ITickHandler {
 
 	public static void register() {
-		FMLCommonHandler.instance().bus().register(new WorldTickHandler());
+		TickRegistry.registerTickHandler(new WorldTickHandler(), Side.SERVER);
 	}
 
 	// These two values are used to intercept /time set day and /time set night commands
@@ -22,14 +26,33 @@ public class WorldTickHandler {
 
 	private long lastWorldTime = 0L;
 
-	@SubscribeEvent
-	public void onWorldTick(TickEvent.WorldTickEvent event) {
-		long worldTime = event.world.getWorldTime();
+	@Override
+	public void tickStart(EnumSet<TickType> type, Object... tickData) {
+
+	}
+
+	@Override
+	public void tickEnd(EnumSet<TickType> type, Object... tickData) {
+		onWorldTick((World) tickData[0]);
+	}
+
+	@Override
+	public EnumSet<TickType> ticks() {
+		return EnumSet.of(TickType.WORLD);
+	}
+
+	@Override
+	public String getLabel() {
+		return null;
+	}
+
+	public void onWorldTick(World world) {
+		long worldTime = world.getWorldTime();
 		if (lastWorldTime != 0L && worldTime != lastWorldTime) {
 			if (worldTime == DEFAULT_DAY_TIME) {
-				event.world.setWorldTime(0);
+				world.setWorldTime(0);
 			} else if (worldTime == DEFAULT_NIGHT_TIME) {
-				event.world.setWorldTime(dayDuration);
+				world.setWorldTime(dayDuration);
 			}
 		}
 		lastWorldTime = worldTime;

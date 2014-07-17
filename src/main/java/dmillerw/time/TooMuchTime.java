@@ -4,7 +4,7 @@ import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import dmillerw.time.handler.WorldTickHandler;
 import dmillerw.time.world.WorldProviderOverworld;
-import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.common.Configuration;
 
 /**
  * @author dmillerw
