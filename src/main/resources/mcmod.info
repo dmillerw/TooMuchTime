@@ -1,0 +1,13 @@
+[
+{
+  "modid": "TooMuchTime",
+  "name": "TooMuchTime",
+  "description": "Control over Minecraft's day/night cycle4",
+  "version": "${mod_version}",
+  "mcversion": "${minecraft_version}",
+  "authors": [ "dmillerw" ],
+  "dependencies": [
+     "mod_MinecraftForge"
+  ]
+}
+]
