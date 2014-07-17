@@ -2,7 +2,10 @@ package dmillerw.time;
 
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import dmillerw.time.data.SessionData;
 import dmillerw.time.handler.WorldTickHandler;
+import dmillerw.time.network.NetworkEventHandler;
+import dmillerw.time.network.PacketHandler;
 import dmillerw.time.world.WorldProviderOverworld;
 import net.minecraftforge.common.Configuration;
 
@@ -19,13 +22,10 @@ public class TooMuchTime {
 		configuration = new Configuration(event.getSuggestedConfigurationFile());
 		configuration.load();
 
-		WorldTickHandler.dayDuration = Math.max(1, configuration.get("general", "dayDuration", 12000).getInt());
-		WorldTickHandler.nightDuration = Math.max(1, configuration.get("general", "nightDuration", 12000).getInt());
+		SessionData.loadFromConfiguration(configuration);
 
-		if (configuration.hasChanged()) {
-			configuration.save();
-		}
-
+		PacketHandler.initialize();
+		NetworkEventHandler.register();
 		WorldTickHandler.register();
 		WorldProviderOverworld.overrideDefault();
 	}

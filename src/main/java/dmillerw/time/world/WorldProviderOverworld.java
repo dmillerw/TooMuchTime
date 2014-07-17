@@ -1,5 +1,6 @@
 package dmillerw.time.world;
 
+import dmillerw.time.data.SessionData;
 import dmillerw.time.handler.WorldTickHandler;
 import net.minecraft.world.WorldProviderSurface;
 import net.minecraftforge.common.DimensionManager;
@@ -18,6 +19,10 @@ public class WorldProviderOverworld extends WorldProviderSurface {
 
 	@Override
 	public float calculateCelestialAngle(long time, float partial) {
+		if (!SessionData.modEnabled) {
+			return super.calculateCelestialAngle(time, partial);
+		}
+
 		// This method eventually returns a values from 0 to 1
 
 		// 0 OR 1 has the sun in the center
