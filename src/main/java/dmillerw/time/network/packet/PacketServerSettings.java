@@ -11,35 +11,19 @@ import io.netty.buffer.ByteBuf;
  */
 public class PacketServerSettings implements IMessage, IMessageHandler<PacketServerSettings, IMessage> {
 
-	public int dayDuration;
-	public int nightDuration;
-
-	public PacketServerSettings() {
-
-	}
-
-	public PacketServerSettings(int dayDuration, int nightDuration) {
-		this.dayDuration = dayDuration;
-		this.nightDuration = nightDuration;
-	}
-
 	@Override
 	public void toBytes(ByteBuf buf) {
-		buf.writeInt(dayDuration);
-		buf.writeInt(nightDuration);
+		SessionData.writeToBuffer(buf);
 	}
 
 	@Override
 	public void fromBytes(ByteBuf buf) {
-		dayDuration = buf.readInt();
-		nightDuration = buf.readInt();
+		SessionData.readFromBuffer(buf);
 	}
 
 	@Override
 	public IMessage onMessage(PacketServerSettings message, MessageContext ctx) {
 		SessionData.modEnabled = true;
-		SessionData.dayDuration = message.dayDuration;
-		SessionData.nightDuration = message.nightDuration;
 		return null;
 	}
 }

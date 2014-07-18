@@ -1,0 +1,11 @@
+# Misc strings, used for simplified localization
+tmt.misc.sun=Sun
+tmt.misc.moon=Moon
+tmt.misc.day=Day
+tmt.misc.night=Night
+
+# Command localization
+tmt.commands.time.stop=%s frozen at %s degrees
+tmt.commands.time.start=Restoring the normal flow of time
+tmt.commands.time.set=%s duration set to %s
+tmt.commands.time.default=Restoring settings to Minecraft default

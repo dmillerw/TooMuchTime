@@ -1,7 +1,6 @@
 package dmillerw.time.world;
 
 import dmillerw.time.data.SessionData;
-import dmillerw.time.handler.WorldTickHandler;
 import net.minecraft.world.WorldProviderSurface;
 import net.minecraftforge.common.DimensionManager;
 
@@ -32,10 +31,21 @@ public class WorldProviderOverworld extends WorldProviderSurface {
 
 		// 0.25F is the value size of one pass through the sky
 
-		int absoluteTime = (int) (time % (WorldTickHandler.dayDuration + WorldTickHandler.nightDuration));
-		boolean day = absoluteTime >= 0 && absoluteTime < WorldTickHandler.dayDuration;
-		int cycleTime = day ? (absoluteTime % WorldTickHandler.dayDuration) : (absoluteTime % WorldTickHandler.nightDuration);
-		float value = 0.5F * ((float) cycleTime + partial) / (day ? (float)WorldTickHandler.dayDuration : (float)WorldTickHandler.nightDuration);
+		if (SessionData.staticAngle >= 0) {
+//		if (false) {
+			float value = 0.5F * ((float)SessionData.staticAngle / 180F);
+			if (SessionData.staticMoon) {
+				value += 0.25F;
+			} else {
+				value += 0.75F;
+			}
+			return value;
+		}
+
+		int absoluteTime = (int) (Math.max(1, time) % (SessionData.dayDuration + SessionData.nightDuration));
+		boolean day = absoluteTime >= 0 && absoluteTime < SessionData.dayDuration;
+		int cycleTime = day ? (absoluteTime % SessionData.dayDuration) : (absoluteTime % SessionData.nightDuration);
+		float value = 0.5F * ((float) cycleTime + partial) / (day ? (float)(SessionData.dayDuration) : (float)(SessionData.nightDuration));
 
 		if (day) {
 			value += 0.75F;

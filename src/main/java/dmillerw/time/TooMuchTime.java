@@ -3,7 +3,7 @@ package dmillerw.time;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import dmillerw.time.data.SessionData;
-import dmillerw.time.handler.WorldTickHandler;
+import dmillerw.time.handler.CommandEventHandler;
 import dmillerw.time.network.NetworkEventHandler;
 import dmillerw.time.network.PacketHandler;
 import dmillerw.time.world.WorldProviderOverworld;
@@ -26,7 +26,7 @@ public class TooMuchTime {
 
 		PacketHandler.initialize();
 		NetworkEventHandler.register();
-		WorldTickHandler.register();
+		CommandEventHandler.register();
 		WorldProviderOverworld.overrideDefault();
 	}
 }
