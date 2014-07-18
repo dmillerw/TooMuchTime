@@ -1,37 +1,50 @@
 package dmillerw.time.network;
 
 import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.PlayerEvent;
-import cpw.mods.fml.common.network.FMLNetworkEvent;
+import cpw.mods.fml.common.network.IConnectionHandler;
+import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.network.Player;
+import cpw.mods.fml.relauncher.Side;
 import dmillerw.time.TooMuchTime;
 import dmillerw.time.data.SessionData;
-import dmillerw.time.network.packet.PacketServerSettings;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.network.INetworkManager;
+import net.minecraft.network.NetLoginHandler;
+import net.minecraft.network.packet.NetHandler;
+import net.minecraft.network.packet.Packet1Login;
+import net.minecraft.server.MinecraftServer;
 
 /**
  * @author dmillerw
  */
-public class NetworkEventHandler {
+public class NetworkEventHandler implements IConnectionHandler {
 
 	public static void register() {
-		FMLCommonHandler.instance().bus().register(new NetworkEventHandler());
+		NetworkRegistry.instance().registerConnectionHandler(new NetworkEventHandler());
 	}
 
-	@SubscribeEvent
-	public void onClientLogin(FMLNetworkEvent.ClientConnectedToServerEvent event) {
-		if (!event.isLocal) {
-			SessionData.modEnabled = false;
+	@Override
+	public void playerLoggedIn(Player player, NetHandler netHandler, INetworkManager manager) {
+		// Packet
+	}
+
+	@Override
+	public String connectionReceived(NetLoginHandler netHandler, INetworkManager manager) { return null; }
+
+	@Override
+	public void connectionOpened(NetHandler netClientHandler, String server, int port, INetworkManager manager) {
+		SessionData.modEnabled = false;
+	}
+
+	@Override
+	public void connectionOpened(NetHandler netClientHandler, MinecraftServer server, INetworkManager manager) {}
+
+	@Override
+	public void connectionClosed(INetworkManager manager) {
+		if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
+			SessionData.loadFromConfiguration(TooMuchTime.configuration);
 		}
 	}
 
-	@SubscribeEvent
-	public void onClientLogout(FMLNetworkEvent.ClientDisconnectionFromServerEvent event) {
-		SessionData.loadFromConfiguration(TooMuchTime.configuration);
-	}
-
-	@SubscribeEvent
-	public void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
-		PacketHandler.INSTANCE.sendTo(new PacketServerSettings(), (EntityPlayerMP) event.player);
-	}
+	@Override
+	public void clientLoggedIn(NetHandler clientHandler, INetworkManager manager, Packet1Login login) {}
 }
