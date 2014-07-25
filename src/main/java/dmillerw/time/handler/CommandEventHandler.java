@@ -4,11 +4,11 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import dmillerw.time.data.SessionData;
 import dmillerw.time.network.PacketHandler;
 import dmillerw.time.network.packet.PacketServerSettings;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandTime;
 import net.minecraft.command.WrongUsageException;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.CommandEvent;
@@ -63,7 +63,7 @@ public class CommandEventHandler {
 							SessionData.staticAngle = setAngle;
 							SessionData.setConfigurationProperty("general", "staticMoon", false);
 							SessionData.setConfigurationProperty("general", "staticAngle", setAngle);
-							CommandBase.notifyAdmins(event.sender, I18n.format("tmt.commands.time.stop", I18n.format("tmt.misc.sun"), setAngle));
+							CommandBase.notifyAdmins(event.sender, "tmt.commands.time.stop", StatCollector.translateToLocal("tmt.misc.sun"), setAngle);
 							PacketHandler.INSTANCE.sendToAll(new PacketServerSettings());
 							return;
 						} else if (event.parameters[1].equals("moon")) {
@@ -72,7 +72,7 @@ public class CommandEventHandler {
 							SessionData.staticAngle = setAngle;
 							SessionData.setConfigurationProperty("general", "staticMoon", true);
 							SessionData.setConfigurationProperty("general", "staticAngle", setAngle);
-							CommandBase.notifyAdmins(event.sender, I18n.format("tmt.commands.time.stop", I18n.format("tmt.misc.moon"), setAngle));
+							CommandBase.notifyAdmins(event.sender, "tmt.commands.time.stop", StatCollector.translateToLocal("tmt.misc.moon"), setAngle);
 							PacketHandler.INSTANCE.sendToAll(new PacketServerSettings());
 							return;
 						}
@@ -81,14 +81,14 @@ public class CommandEventHandler {
 					int setTime = CommandBase.parseInt(event.sender, event.parameters[1]);
 					SessionData.dayDuration = setTime;
 					SessionData.setConfigurationProperty("general", "dayDuration", setTime);
-					CommandBase.notifyAdmins(event.sender, I18n.format("tmt.commands.time.set", I18n.format("tmt.misc.day"), setTime));
+					CommandBase.notifyAdmins(event.sender, "tmt.commands.time.set", StatCollector.translateToLocal("tmt.misc.day"), setTime);
 					PacketHandler.INSTANCE.sendToAll(new PacketServerSettings());
 					return;
 				} else if (event.parameters[0].equals("set-night")) {
 					int setTime = CommandBase.parseInt(event.sender, event.parameters[1]);
 					SessionData.nightDuration = setTime;
 					SessionData.setConfigurationProperty("general", "nightDuration", setTime);
-					CommandBase.notifyAdmins(event.sender, I18n.format("tmt.commands.time.set", I18n.format("tmt.misc.night"), setTime));
+					CommandBase.notifyAdmins(event.sender, "tmt.commands.time.set", StatCollector.translateToLocal("tmt.misc.night"), setTime);
 					PacketHandler.INSTANCE.sendToAll(new PacketServerSettings());
 					return;
 				}
@@ -96,7 +96,7 @@ public class CommandEventHandler {
 				if (event.parameters[0].equals("start")) {
 					SessionData.staticAngle = -1;
 					SessionData.setConfigurationProperty("general", "staticMoon", -1);
-					CommandBase.notifyAdmins(event.sender, I18n.format("tmt.commands.time.start"));
+					CommandBase.notifyAdmins(event.sender, "tmt.commands.time.start");
 					PacketHandler.INSTANCE.sendToAll(new PacketServerSettings());
 					return;
 				} else if (event.parameters[0].equals("set-default")) {
@@ -104,7 +104,7 @@ public class CommandEventHandler {
 					SessionData.nightDuration = 12000;
 					SessionData.setConfigurationProperty("general", "dayDuration", 12000);
 					SessionData.setConfigurationProperty("general", "nightDuration", 12000);
-					CommandBase.notifyAdmins(event.sender, I18n.format("tmt.commands.time.default"));
+					CommandBase.notifyAdmins(event.sender, "tmt.commands.time.default");
 					PacketHandler.INSTANCE.sendToAll(new PacketServerSettings());
 					return;
 				}
