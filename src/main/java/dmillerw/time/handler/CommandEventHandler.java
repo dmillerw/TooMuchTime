@@ -47,7 +47,7 @@ public class CommandEventHandler {
 
 					setTime(time);
 
-					CommandBase.notifyAdmins(event.sender, "commands.time.set", time);
+					CommandBase.func_152373_a(event.sender, null, null, "commands.time.set", time);
 
 					return;
 				} else if (event.parameters[0].equals("add")) {
@@ -55,7 +55,7 @@ public class CommandEventHandler {
 
 					addTime(time);
 
-					CommandBase.notifyAdmins(event.sender, "commands.time.added", time);
+					CommandBase.func_152373_a(event.sender, null, "commands.time.added", time);
 
 					return;
 				} else if (event.parameters[0].equals("stop")) {
@@ -66,7 +66,7 @@ public class CommandEventHandler {
 							SessionData.staticAngle = setAngle;
 							SessionData.setConfigurationProperty("general", "staticMoon", false);
 							SessionData.setConfigurationProperty("general", "staticAngle", setAngle);
-							CommandBase.notifyAdmins(event.sender, "tmt.commands.time.stop", StatCollector.translateToLocal("tmt.misc.sun"), setAngle);
+							CommandBase.func_152373_a(event.sender, null, "tmt.commands.time.stop", StatCollector.translateToLocal("tmt.misc.sun"), setAngle);
 							PacketHandler.INSTANCE.sendToAll(new PacketServerSettings());
 							return;
 						} else if (event.parameters[1].equals("moon")) {
@@ -75,7 +75,7 @@ public class CommandEventHandler {
 							SessionData.staticAngle = setAngle;
 							SessionData.setConfigurationProperty("general", "staticMoon", true);
 							SessionData.setConfigurationProperty("general", "staticAngle", setAngle);
-							CommandBase.notifyAdmins(event.sender, "tmt.commands.time.stop", StatCollector.translateToLocal("tmt.misc.moon"), setAngle);
+							CommandBase.func_152373_a(event.sender, null, "tmt.commands.time.stop", StatCollector.translateToLocal("tmt.misc.moon"), setAngle);
 							PacketHandler.INSTANCE.sendToAll(new PacketServerSettings());
 							return;
 						}
@@ -84,14 +84,14 @@ public class CommandEventHandler {
 					int setTime = CommandBase.parseInt(event.sender, event.parameters[1]);
 					SessionData.dayDuration = setTime;
 					SessionData.setConfigurationProperty("general", "dayDuration", setTime);
-					CommandBase.notifyAdmins(event.sender, "tmt.commands.time.set", StatCollector.translateToLocal("tmt.misc.day"), setTime);
+					CommandBase.func_152373_a(event.sender, null, "tmt.commands.time.set", StatCollector.translateToLocal("tmt.misc.day"), setTime);
 					PacketHandler.INSTANCE.sendToAll(new PacketServerSettings());
 					return;
 				} else if (event.parameters[0].equals("set-night")) {
 					int setTime = CommandBase.parseInt(event.sender, event.parameters[1]);
 					SessionData.nightDuration = setTime;
 					SessionData.setConfigurationProperty("general", "nightDuration", setTime);
-					CommandBase.notifyAdmins(event.sender, "tmt.commands.time.set", StatCollector.translateToLocal("tmt.misc.night"), setTime);
+					CommandBase.func_152373_a(event.sender, null, "tmt.commands.time.set", StatCollector.translateToLocal("tmt.misc.night"), setTime);
 					PacketHandler.INSTANCE.sendToAll(new PacketServerSettings());
 					return;
 				}
@@ -99,7 +99,7 @@ public class CommandEventHandler {
 				if (event.parameters[0].equals("start")) {
 					SessionData.staticAngle = -1;
 					SessionData.setConfigurationProperty("general", "staticMoon", -1);
-					CommandBase.notifyAdmins(event.sender, "tmt.commands.time.start");
+					CommandBase.func_152373_a(event.sender, null, "tmt.commands.time.start");
 					PacketHandler.INSTANCE.sendToAll(new PacketServerSettings());
 					return;
 				} else if (event.parameters[0].equals("set-default")) {
@@ -107,7 +107,7 @@ public class CommandEventHandler {
 					SessionData.nightDuration = 12000;
 					SessionData.setConfigurationProperty("general", "dayDuration", 12000);
 					SessionData.setConfigurationProperty("general", "nightDuration", 12000);
-					CommandBase.notifyAdmins(event.sender, "tmt.commands.time.default");
+					CommandBase.func_152373_a(event.sender, null, "tmt.commands.time.default");
 					PacketHandler.INSTANCE.sendToAll(new PacketServerSettings());
 					return;
 				}
