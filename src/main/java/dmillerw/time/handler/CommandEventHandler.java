@@ -47,7 +47,7 @@ public class CommandEventHandler {
 
 					setTime(time);
 
-					CommandBase.func_152373_a(event.sender, null, null, "commands.time.set", time);
+					CommandBase.func_152373_a(event.sender, null, "commands.time.set", time);
 
 					return;
 				} else if (event.parameters[0].equals("add")) {
