@@ -47,10 +47,10 @@ public class SessionData {
 			nightDuration = 1;
 		}
 
-		if (staticAngle < 0) {
-			staticAngle = 0;
+		if (staticAngle < -1) {
+			staticAngle = -1;
 		} else if (staticAngle > 180) {
-			staticAngle = 360;
+			staticAngle = 180;
 		}
 
 		if (configuration.hasChanged()) {

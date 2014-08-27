@@ -1,6 +1,7 @@
 package dmillerw.time.handler;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import dmillerw.time.TooMuchTime;
 import dmillerw.time.data.SessionData;
 import dmillerw.time.network.PacketHandler;
 import dmillerw.time.network.packet.PacketServerSettings;
@@ -31,7 +32,9 @@ public class CommandEventHandler {
 			if (event.parameters.length > 1) {
 				int time;
 
-				if (event.parameters[0].equals("set")) {
+                if (event.parameters[0].equalsIgnoreCase("reload")) {
+                    SessionData.loadFromConfiguration(TooMuchTime.configuration);
+                } else if (event.parameters[0].equals("set")) {
 					if (event.parameters[1].equals("day")) {
 						time = 0;
 					} else if (event.parameters[1].equals("noon")) {
