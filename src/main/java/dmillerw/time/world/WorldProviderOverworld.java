@@ -31,8 +31,8 @@ public class WorldProviderOverworld extends WorldProviderSurface {
 
 		// 0.25F is the value size of one pass through the sky
 
+		/*
 		if (SessionData.staticAngle >= 0) {
-//		if (false) {
 			float value = 0.5F * ((float)SessionData.staticAngle / 180F);
 			if (SessionData.staticMoon) {
 				value += 0.25F;
@@ -41,6 +41,7 @@ public class WorldProviderOverworld extends WorldProviderSurface {
 			}
 			return value;
 		}
+		*/
 
 		int absoluteTime = (int) (Math.max(1, time) % (SessionData.dayDuration + SessionData.nightDuration));
 		boolean day = absoluteTime >= 0 && absoluteTime < SessionData.dayDuration;
