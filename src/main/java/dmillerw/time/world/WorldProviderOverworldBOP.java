@@ -6,6 +6,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 
 /**
+ * Borrowed from the Biomes O' Plenty GitHub repo, and placed on top of my provider code
+ * Should allow for both mods to work well together (crosses fingers)
  * @author dmillerw
  */
 public class WorldProviderOverworldBOP extends WorldProviderOverworld {
