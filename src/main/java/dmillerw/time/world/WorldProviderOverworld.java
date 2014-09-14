@@ -11,9 +11,9 @@ public class WorldProviderOverworld extends WorldProviderSurface {
 
 	public static void overrideDefault() {
 		DimensionManager.unregisterProviderType(DimensionManager.getProviderType(0));
-		DimensionManager.unregisterDimension(0);
+//		DimensionManager.unregisterDimension(0);
 		DimensionManager.registerProviderType(0, WorldProviderOverworld.class, false);
-		DimensionManager.registerDimension(0, 0);
+//		DimensionManager.registerDimension(0, 0);
 	}
 
 	@Override
