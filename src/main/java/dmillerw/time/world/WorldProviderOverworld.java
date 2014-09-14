@@ -1,5 +1,6 @@
 package dmillerw.time.world;
 
+import cpw.mods.fml.common.Loader;
 import dmillerw.time.data.SessionData;
 import net.minecraft.world.WorldProviderSurface;
 import net.minecraftforge.common.DimensionManager;
@@ -11,9 +12,11 @@ public class WorldProviderOverworld extends WorldProviderSurface {
 
 	public static void overrideDefault() {
 		DimensionManager.unregisterProviderType(DimensionManager.getProviderType(0));
-//		DimensionManager.unregisterDimension(0);
-		DimensionManager.registerProviderType(0, WorldProviderOverworld.class, false);
-//		DimensionManager.registerDimension(0, 0);
+		if (Loader.isModLoaded("BiomesOPlenty")) {
+            DimensionManager.registerProviderType(0, WorldProviderOverworldBOP.class, false);
+        } else {
+            DimensionManager.registerProviderType(0, WorldProviderOverworld.class, false);
+        }
 	}
 
 	@Override

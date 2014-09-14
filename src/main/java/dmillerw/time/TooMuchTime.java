@@ -1,6 +1,7 @@
 package dmillerw.time;
 
 import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import dmillerw.time.data.SessionData;
 import dmillerw.time.handler.CommandEventHandler;
@@ -12,7 +13,7 @@ import net.minecraftforge.common.config.Configuration;
 /**
  * @author dmillerw
  */
-@Mod(modid = "TooMuchTime", name = "TooMuchTime", version = "%MOD_VERSION%", dependencies = "required-after:Forge@[%FORGE_VERSION%,)")
+@Mod(modid = "TooMuchTime", name = "TooMuchTime", version = "%MOD_VERSION%", dependencies = "after:BiomesOPlenty; required-after:Forge@[%FORGE_VERSION%,)")
 public class TooMuchTime {
 
 	public static Configuration configuration;
@@ -27,6 +28,10 @@ public class TooMuchTime {
 		PacketHandler.initialize();
 		NetworkEventHandler.register();
 		CommandEventHandler.register();
-		WorldProviderOverworld.overrideDefault();
 	}
+
+    @Mod.EventHandler
+    public void postInit(FMLPostInitializationEvent event) {
+        WorldProviderOverworld.overrideDefault();
+    }
 }
