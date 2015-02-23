@@ -13,9 +13,9 @@ public class WorldProviderOverworld extends WorldProviderSurface {
 	public static void overrideDefault() {
 		DimensionManager.unregisterProviderType(DimensionManager.getProviderType(0));
 		if (Loader.isModLoaded("BiomesOPlenty")) {
-            DimensionManager.registerProviderType(0, WorldProviderOverworldBOP.class, false);
+            DimensionManager.registerProviderType(0, WorldProviderOverworldBOP.class, true);
         } else {
-            DimensionManager.registerProviderType(0, WorldProviderOverworld.class, false);
+            DimensionManager.registerProviderType(0, WorldProviderOverworld.class, true);
         }
 	}
 
